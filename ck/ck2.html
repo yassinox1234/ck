@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- for non-UI builds: -->
+  <script src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/shaka-player.compiled.js"></script>
+  <!-- or, for UI builds: -->
+  <script src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/shaka-player.ui.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/controls.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    #video-container {
+      width: 100%;
+      height: 100%; /* Set the height to 100% for full screen */
+      background-color: #000; /* Set the background color */
+    }
+    #video {
+      width: 100%;
+      height: 100%; /* Set the height to 100% for full screen */
+    }
+  </style>
+</head>
+<body>
+  <div id="video-container" data-shaka-player-container data-shaka-player-cast-receiver-id="1BA79154">
+    <video data-shaka-player id="video"></video>
+  </div>
+
+  <script>
+async function init() {
+  const manifestUri = "https://a186aivottlinear-a.akamaihd.net/OTTB/lhr-nitro/live/clients/dash/enc/djbpzmp0wh/out/v1/e39a696563e340a18e4906d100ee3709/cenc.mpd";
+
+  // Define an array of KeyId:Key pairs
+  const clearKeys = [
+    "b770d5b4bb6b594daf985845aae9aa5f:b0cb46d2d31cf044bc73db71e9865f6f",
+    "16ba5dde943fd767d4116745b2c06a9f:9c6c1a93306a2480f5559778634eb14e"
+    // Add more key pairs as needed
+  ];
+
+  const video = document.getElementById('video');
+  const ui = video['ui'];
+  const controls = ui.getControls();
+  const player = controls.getPlayer();
+
+  player.configure({
+    drm: {
+      // Use the clearKeys array to specify multiple keys
+      clearKeys: Object.fromEntries(
+        clearKeys.map(keyPair => {
+          const [clearKeyId, clearKeyValue] = keyPair.split(':');
+          return [clearKeyId, clearKeyValue];
+        })
+      )
+    },
+    streaming: {
+      bufferingGoal: 0,
+      rebufferingGoal: 0,
+      bufferingGoalAfterSeek: 0,
+    },
+  });
+
+  // Set the video to loop indefinitely
+  video.addEventListener('ended', function() {
+    video.currentTime = 0;
+    video.play();
+  });
+
+  // Configure player to select the highest available resolution
+  player.addEventListener('variantchanged', function() {
+    const tracks = player.getVariantTracks();
+    const highestResTrack = tracks.reduce((prev, current) => {
+      return current.height > prev.height ? current : prev;
+    });
+    player.selectVariantTrack(highestResTrack);
+  });
+
+  window.player = player;
+  window.ui = ui;
+
+  player.addEventListener('error', onPlayerErrorEvent);
+
+  try {
+    await player.load(manifestUri);
+    video.play(); // Start playing immediately
+    console.log('The video is now playing in full-screen live mode with the highest resolution!');
+  } catch (error) {
+    onPlayerError(error);
+  }
+}
+
+// Load the video immediately when the page is loaded
+window.addEventListener('load', init);
+  </script>
+</body>
+</html>
