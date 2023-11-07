@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- for non-UI builds: -->
+  <script src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/shaka-player.compiled.js"></script>
+  <!-- or, for UI builds: -->
+  <script src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/shaka-player.ui.js"></script>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/controls.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+    #video-container {
+      width: 100%;
+      height: 100%; /* Set the height to 100% for full screen */
+      background-color: #000; /* Set the background color */
+    }
+    #video {
+      width: 100%;
+      height: 100%; /* Set the height to 100% for full screen */
+    }
+  </style>
+</head>
+<body>
+  <div id="video-container" data-shaka-player-container data-shaka-player-cast-receiver-id="1BA79154">
+    <video data-shaka-player id="video"></video>
+  </div>
+
+  <script>
+    async function init() {
+      const manifestUri = "http://linear036-ie-dash1-prd-ak.cdn.skycdp.com/016a/Content/DASH_003_hd/Live/channel(tnt3sport50)/manifest_hd.mpd";
+      const clearKey = "0005d81e9c8dd58b72ebd87d54a78009:01924a06ecbe6296e756e35acdd7c30e";
+
+      const [clearKeyId, clearKeyValue] = clearKey.split(':');
+
+      const video = document.getElementById('video');
+      const ui = video['ui'];
+      const controls = ui.getControls();
+      const player = controls.getPlayer();
+
+      player.configure({
+        drm: {
+          clearKeys: {
+            [clearKeyId]: clearKeyValue
+          }
+        },
+        streaming: {
+          bufferingGoal: 0, // Set buffering goal to zero for live playback
+          rebufferingGoal: 0, // Set rebuffering goal to zero for live playback
+          bufferingGoalAfterSeek: 0, // Set buffering goal after seek to zero for live playback
+        },
+      });
+
+      // Set the video to loop indefinitely
+      video.addEventListener('ended', function() {
+        video.currentTime = 0;
+        video.play();
+      });
+
+      // Configure player to select the highest available resolution
+      player.addEventListener('variantchanged', function() {
+        const tracks = player.getVariantTracks();
+        const highestResTrack = tracks.reduce((prev, current) => {
+          return current.height > prev.height ? current : prev;
+        });
+        player.selectVariantTrack(highestResTrack);
+      });
+
+      window.player = player;
+      window.ui = ui;
+
+      player.addEventListener('error', onPlayerErrorEvent);
+
+      try {
+        await player.load(manifestUri);
+        video.play(); // Start playing immediately
+        console.log('The video is now playing in full-screen live mode with the highest resolution!');
+      } catch (error) {
+        onPlayerError(error);
+      }
+    }
+
+    function onPlayerErrorEvent(errorEvent) {
+      onPlayerError(errorEvent.detail);
+    }
+
+    function onPlayerError(error) {
+      console.error('Error code', error.code, 'object', error);
+    }
+
+    // Load the video immediately when the page is loaded
+    window.addEventListener('load', init);
+  </script>
+</body>
+</html>
