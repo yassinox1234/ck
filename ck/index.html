@@ -1,125 +1,75 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <!-- for non-UI builds: -->
-  <script src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/shaka-player.compiled.js"></script>
-  <!-- or, for UI builds: -->
-  <script src="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/shaka-player.ui.js"></script>
-  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/shaka-player/3.2.0/controls.css">
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-    #video-container {
-      width: 100%;
-      max-width: 40em;
-      margin: 0 auto; /* Center the video player */
-      background-color: #000; /* Set the background color */
-    }
-    #video {
-      width: 100%;
-      height: auto;
-    }
-    .input-container {
-      margin-bottom: 10px;
-      padding: 0 20px; /* Add padding to the right and left sides */
-    }
-    .input-container label {
-      display: block;
-    }
-    .input-container input {
-      width: 100%;
-      padding: 5px;
-    }
-    .input-container button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-    }
-    #load-video-button {
-      display: block;
-      width: 100%;
-      padding: 10px;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Product Description</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            background-color: #ffffff; /* Updated to white */
+            padding: 20px;
+            color: #333;
+        }
+        h1 {
+            color: #d9534f;
+        }
+        .section-title {
+            color: #0275d8;
+            font-weight: bold;
+        }
+        ul {
+            margin: 10px 0 20px 20px;
+        }
+        .disclaimer {
+            color: #f0ad4e;
+            font-weight: bold;
+        }
+        .contact {
+            color: #5cb85c;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-  <div id="video-container" data-shaka-player-container data-shaka-player-cast-receiver-id="1BA79154">
-    <video data-shaka-player id="video"></video>
-  </div>
+    <h1>📢 IMPORTANT INFORMATION</h1>
+    <p>This is a digital download, <strong>NOT</strong> a physical product. Nothing will be shipped to your address.</p>
 
-  <div class="input-container">
-    <label for="manifestUrlInput">Manifest URL:</label>
-    <input type="text" id="manifestUrlInput" placeholder="Enter manifest URL" required>
-    <button onclick="pasteManifestUrl()">Paste</button>
-  </div>
-  <div class="input-container">
-    <label for="clearKeyInput">Clear Key (kid:key):</label>
-    <input type="text" id="clearKeyInput" placeholder="Enter clear key (kid:key)" required>
-    <button onclick="pasteClearKey()">Paste</button>
-  </div>
-  <button id="load-video-button" onclick="init()">Load Video</button>
+    <h2 class="section-title">📦 WHAT YOU WILL RECEIVE:</h2>
+    <ul>
+        <li>📚 <strong>Ebooks in 3 Formats:</strong>
+            <ul>
+                <li>EPUB – Compatible with most reading apps.</li>
+                <li>MOBI – Perfect for Kindle devices.</li>
+                <li>PDF – Viewable on any device.</li>
+            </ul>
+        </li>
+        <li>🎧 <strong>Audiobooks in 2 Formats:</strong>
+            <ul>
+                <li>M4B – Ideal for Apple devices and audiobook apps.</li>
+                <li>MP3 – Works on almost all audio players.</li>
+            </ul>
+        </li>
+    </ul>
 
-  <script>
-    function pasteManifestUrl() {
-      navigator.clipboard.readText().then((text) => {
-        document.getElementById('manifestUrlInput').value = text;
-      });
-    }
+    <h2 class="section-title">💻 HOW TO ACCESS YOUR FILES:</h2>
+    <p>A download link will be sent to your eBay Messages after purchase. Delivery is fast—expect it within minutes to a few hours!</p>
 
-    function pasteClearKey() {
-      navigator.clipboard.readText().then((text) => {
-        document.getElementById('clearKeyInput').value = text;
-      });
-    }
+    <h2 class="section-title">📖 HOW TO USE YOUR FILES:</h2>
+    <ul>
+        <li><strong>Ebooks:</strong> Open on any device with apps like Apple Books, Kindle, or any EPUB/MOBI/PDF reader.</li>
+        <li><strong>Audiobooks:</strong> Play on your smartphone, tablet, or computer with support for M4B/MP3 formats.</li>
+    </ul>
 
-    async function init() {
-      const manifestUri = document.getElementById('manifestUrlInput').value;
-      const clearKey = document.getElementById('clearKeyInput').value;
-      const referrer = 'https://tv.apple.com/'; // Replace with your referrer URL
+    <h2 class="contact">❓ NEED HELP?</h2>
+    <p>Contact me through eBay or email me directly at: <a href="mailto:leoneeisenberg@gmail.com">leoneeisenberg@gmail.com</a>.</p>
+    <p>I’m here to assist you with any questions or concerns!</p>
 
-      const [clearKeyId, clearKeyValue] = clearKey.split(':');
-
-      const video = document.getElementById('video');
-      const ui = video['ui'];
-      const controls = ui.getControls();
-      const player = controls.getPlayer();
-
-      player.configure({
-        drm: {
-          clearKeys: {
-            [clearKeyId]: clearKeyValue
-          }
-        },
-        streaming: {
-          referrer: referrer
-        }
-      });
-
-      window.player = player;
-      window.ui = ui;
-
-      player.addEventListener('error', onPlayerErrorEvent);
-
-      try {
-        await player.load(manifestUri);
-        console.log('The video has now been loaded!');
-      } catch (error) {
-        onPlayerError(error);
-      }
-    }
-
-    function onPlayerErrorEvent(errorEvent) {
-      onPlayerError(errorEvent.detail);
-    }
-
-    function onPlayerError(error) {
-      console.error('Error code', error.code, 'object', error);
-    }
-
-    document.addEventListener('shaka-ui-loaded', init);
-  </script>
+    <h2 class="disclaimer">⚠️ DISCLAIMER:</h2>
+    <ul>
+        <li>This is a digital item for download only. No physical items will be shipped.</li>
+        <li>Please ensure your device supports the provided formats before purchasing.</li>
+    </ul>
 </body>
 </html>
