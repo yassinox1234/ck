@@ -104,6 +104,71 @@
     .footer a {
       color: #FFB300;
     }
+
+    /* Contact Form Styles */
+    .contact-form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      padding: 0 20px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #157F3F;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #157F3F;
+      outline: none;
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+    .form-submit {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .form-submit button {
+      background: #FFD700;
+      color: #000;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .form-submit button:hover {
+      background: #FFC107;
+    }
+    .success-message {
+      color: #157F3F;
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+    }
+    .error-message {
+      color: #ff0000;
+      text-align: center;
+      margin-top: 20px;
+      display: none;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
@@ -166,25 +231,27 @@
     <div class="card" id="contact-form">
       <h2>Make an Offer</h2>
       <p>Interested in purchasing <strong>ibet.now</strong>? Fill out the form below, and we'll get back to you shortly.</p>
-      <form id="domain-inquiry-form" action="https://formspree.io/f/your-form-id" method="POST">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required>
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required>
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" required>Hello, I am interested in the domain ibet.now. Is it still available? Please let me know the price or how to make an offer. Thank you!</textarea>
-        </div>
-        <div class="form-submit">
-          <button type="submit">Send Inquiry</button>
-        </div>
-      </form>
-      <div id="success-message" class="success-message" style="display:none;">Thank you! Your message has been sent.</div>
-      <div id="error-message" class="error-message" style="display:none;">Oops! Something went wrong. Please try again.</div>
+      <div class="contact-form-container">
+        <form id="domain-inquiry-form" action="https://formspree.io/f/your-form-id" method="POST">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required>Hello, I am interested in the domain ibet.now. Is it still available? Please let me know the price or how to make an offer. Thank you!</textarea>
+          </div>
+          <div class="form-submit">
+            <button type="submit">Send Inquiry</button>
+          </div>
+        </form>
+        <div id="success-message" class="success-message">Thank you! Your message has been sent.</div>
+        <div id="error-message" class="error-message">Oops! Something went wrong. Please try again.</div>
+      </div>
     </div>
   </main>
 
