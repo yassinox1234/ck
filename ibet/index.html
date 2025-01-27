@@ -7,10 +7,127 @@
   <meta name="description" content="Own ibet.now – the perfect domain for your betting or gaming business. Short, memorable, and brandable. Make an offer today!">
   <style>
     /* Minimalistic and Fast-Loading CSS */
-    body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;margin:0;padding:0;background-color:#F5F5F5;color:#333;line-height:1.6}h1,h2,h3{font-weight:500;margin:0}h1{font-size:2.5rem}h2{font-size:2rem}p{font-size:1.1rem;margin:10px 0}.card{background:#FFF;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,0.1);padding:20px;margin:20px 0}.header{background:#157F3F;color:#FFF;padding:60px 20px;text-align:center}.header h1{font-size:3rem;margin-bottom:10px}.header p{font-size:1.3rem;margin-bottom:20px}.cta-button{background:#FFD700;color:#000;padding:12px 24px;font-size:1.1rem;font-weight:bold;border-radius:4px;display:inline-block;transition:background-color 0.3s ease;text-decoration:none}.cta-button:hover{background:#FFC107}.content{max-width:800px;margin:40px auto;padding:0 20px}.content h2{color:#157F3F;margin-bottom:20px}.content ul{list-style:none;padding:0}.content ul li{background:#FFF;margin:10px 0;padding:15px;border-radius:8px;box-shadow:0 2px 4px rgba(0,0,0,0.1)}.footer{background:#000;color:#FFB300;text-align:center;padding:20px;margin-top:40px}.footer a{color:#FFB300}.form-group{margin-bottom:15px}.form-group label{display:block;font-weight:bold;margin-bottom:5px}.form-group input,.form-group textarea{width:100%;padding:10px;border:1px solid #ddd;border-radius:4px;font-size:1rem}.form-group textarea{resize:vertical;min-height:100px}.form-submit{text-align:center}.form-submit button{background:#FFD700;color:#000;padding:12px 24px;font-size:1.1rem;font-weight:bold;border:none;border-radius:4px;cursor:pointer;transition:background-color 0.3s ease}.form-submit button:hover{background:#FFC107}.success-message{color:#157F3F;text-align:center;margin-top:20px}.error-message{color:#ff0000;text-align:center;margin-top:20px}
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #F5F5F5;
+      color: #333;
+      line-height: 1.6;
+    }
+    h1, h2, h3 {
+      font-weight: 500;
+      margin: 0;
+    }
+    h1 {
+      font-size: 2.5rem;
+    }
+    h2 {
+      font-size: 2rem;
+    }
+    p {
+      font-size: 1.1rem;
+      margin: 10px 0;
+    }
+    .card {
+      background: #FFF;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      margin: 20px 0;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    }
+    .header {
+      background: #157F3F;
+      color: #FFF;
+      padding: 60px 20px;
+      text-align: center;
+      animation: fadeIn 1.5s ease-in-out;
+    }
+    .header h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+    .header p {
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+    .cta-button {
+      background: #FFD700;
+      color: #000;
+      padding: 12px 24px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border-radius: 4px;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+      text-decoration: none;
+    }
+    .cta-button:hover {
+      background: #FFC107;
+    }
+    .content {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .content h2 {
+      color: #157F3F;
+      margin-bottom: 20px;
+    }
+    .content ul {
+      list-style: none;
+      padding: 0;
+    }
+    .content ul li {
+      background: #FFF;
+      margin: 10px 0;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+    .content ul li:hover {
+      transform: translateX(10px);
+    }
+    .footer {
+      background: #000;
+      color: #FFB300;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+    .footer a {
+      color: #FFB300;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
   </style>
-  <!-- Preload Critical Resources (if needed) -->
-  <link rel="preload" href="mailto:youremail@example.com" as="document">
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-XXXXX-Y"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-XXXXX-Y');
+  </script>
+  <!-- Hotjar -->
+  <script>
+    (function(h,o,t,j,a,r){
+      h.hj=h.hj||function(){(h.hj.q=h.hj.q||[]).push(arguments)};
+      h._hjSettings={hjid:XXXXXXX,hjsv:6};
+      a=o.getElementsByTagName('head')[0];
+      r=o.createElement('script');r.async=1;
+      r.src=t+h._hjSettings.hjid+j+h._hjSettings.hjsv;
+      a.appendChild(r);
+    })(window,document,'https://static.hotjar.com/c/hotjar-','.js?sv=');
+  </script>
 </head>
 <body>
   <!-- Header -->
@@ -75,56 +192,5 @@
   <footer class="footer">
     &copy; 2025 ibet.now | <a href="#contact-form">Make an Offer</a>
   </footer>
-
-  <!-- Schema Markup -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "ibet.now",
-    "description": "Premium domain for sale – perfect for betting, gaming, or crypto platforms.",
-    "brand": {
-      "@type": "Brand",
-      "name": "ibet.now"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "#contact-form",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock"
-    }
-  }
-  </script>
-
-  <!-- Form Submission Script -->
-  <script>
-    const form = document.getElementById('domain-inquiry-form');
-    const successMessage = document.getElementById('success-message');
-    const errorMessage = document.getElementById('error-message');
-
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-
-        if (response.ok) {
-          successMessage.style.display = 'block';
-          form.reset();
-        } else {
-          errorMessage.style.display = 'block';
-        }
-      } catch (error) {
-        errorMessage.style.display = 'block';
-      }
-    });
-  </script>
 </body>
 </html>
